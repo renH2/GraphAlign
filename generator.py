@@ -181,7 +181,7 @@ class MyGenerator:
         if not os.path.exists(f'./{args.savefile}'):
             os.makedirs(f'./{args.savefile}')
             print(f"Directory '{args.savefile}' created.")
-        print("Max performance:",self.max_performance)
+        print("Performance:",self.max_performance)
         torch.save(self.max_adj_syn,
                    f'./{args.savefile}/adj_{args.source}_{args.target}_{args.reduction_rate}_{args.seed}_{self.max_performance:.4f}.pt')
         torch.save(self.max_feat_syn,

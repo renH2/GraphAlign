@@ -178,34 +178,23 @@ It is worth noting that the newly generated source graph is saved at the locatio
 
 Using DBLPv7 as source graph and  Citationv1 (C) as target graph.
 ```bash
-python -u train.py --source dblp --target citation --epoch 500 --dis_metric ours --alpha 30 --method mmd-un --gpu_id 0
+python train.py --source dblp --target citation --epoch 500 --dis_metric ours --alpha 30 --method mmd-un --gpu_id 0
 ```
 
 <span id='Evaluating model'/>
 
 ### 3.2. Evaluate performance with ERM
 
-`generate.py` file helps generate embeddings on a specific dataset. The help information of the main script `generate.py` can be obtained by executing the following command.
+After obtaining the newly generated graph, we want to evaluate it by simply conducting ERM (Empirical Risk Minimization) training. Here, we temporarily combine the results with `train.py` so that users can directly obtain the performance after training. In the future, we will provide more diverse versions of evaluation.
 
-```bash
-python generate.py -h
+here's an example of a test.sh script that can help with evaluation:
 
-optional arguments:
-  --load-path LOAD_PATH
-  --dataset Dataset
-  --gpu GPU  GPU id to use.
-```
-The embedding will be used for evaluation in node classification. The script `evaluate.sh` is available to simplify the evaluation process as follows: 
-
-```
-bash evaluate.sh <model_path> <name> <dataset> <gpu id>
-```
-Here, `<saved_path>` refers to the main directory for finetuning, and `<name>` is the name of specific model directory.
 
 **Demo:**
-Here is the demo instruction, after the user has trained using the demo provided above.
+Here is the demo instruction for evaluation.
 ```
-bash scripts/evaluate.sh saved path_bridge10_usa_airport usa_airport 0
+nohup bash test.sh 0 > result.out 2>&1 &
+cat result.out |grep "Performance"
 ```
 
 ## Contact
